@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>テスト</title>
+  <style>
+    .graph{
+      height: 150px;
+      width: 300px;
+      padding: 10px;
+    }
+    .graph rect{
+      fill: #ff0000;
+      stroke: #0000ff;
+      stroke-width: 3px;
+    }
+    .graph rect:hover {
+      fill: #0000ff
+    }
+    .axis line,
+    .axis path{
+      fill: none;
+      stroke: #000000;
+    }
+    .axis text{
+      font-family: sans-serif;
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <svg id="graph" class="graph"></svg></br>
+  <button id="updata1">データ1</button>
+  <button id="updata2">データ2</button>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+  "use strict";
+
+  var
+    dataList1 = [300,100,50,230,25],
+    dataList2 = [100,120,80,200,90],//本番環境ではDB、もしくはAPIでやる
+    height = 20,
+    space = 5;
+
+  d3.select("#graph")
+    .selectAll("rect")
+    .data(dataList1)
+    .enter()
+    .append("rect")
+    .attr("y",function(d,i){
+      return (height + space) * i;
+    })
+    .attr("x",0)
+    .attr("height",height)
+    .attr("width",0)
+    .attr("width",function(d,i){
+      return d;
+    });
+
+  var xScale = d3.scale.linear()
+    .domain([0,300])
+    .range([0,300]),
+    XScalePos = dataList1.length * 25;
+
+  d3.select("#graph")
+    .append("g")
+    .attr("class","axis")
+    .attr("transform", "translate(0," + XScalePos + ")")
+    .call(d3.svg.axis().scale(xScale).orient("bottom"));
+
+    d3.select("#updata1").on("click",function(){
+      d3.select("#graph")
+        .selectAll("rect")
+        .data(dataList1)
+        .transition()
+        .attr("x",0)
+        .attr("width",function(d,i){
+          return d;
+        });
+    });
+
+    d3.select("#updata2").on("click",function(){
+      d3.select("#graph")
+        .selectAll("rect")
+        .data(dataList2)
+        .transition()
+        .attr("x",0)
+        .attr("width",function(d,i){
+          return d;
+        });
+    });
+</script>
+</body>
+</html>

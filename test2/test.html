@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>テスト</title>
+  <style>
+    .graph{
+      height: 300px;
+      width: 300px;
+    }
+    .graph rect{
+      fill: #ff0000;
+      stroke: #0000ff;
+      stroke-width: 3px;
+    }
+    .graph rect:hover {
+      fill: #0000ff;
+    }
+  </style>
+</head>
+<body>
+  <svg id="graph" class="graph"></svg></br>
+  <button id="updata1">データ1</button>
+  <button id="updata2">データ2</button>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+  "use strict";
+
+  var
+    dataList1 = [300,100,50,230,25],
+    dataList2 = [100,120,80,200,90],//本番環境ではDB、もしくはAPIでやる
+    width = 20,
+    space = 5,
+    initial = Math.max.apply(null, dataList1);
+
+  d3.select("#graph")
+    .selectAll("rect")
+    .data(dataList1)
+    .enter()
+    .append("rect")
+    .attr("x",function(d,i){
+      return (width + space) * i;
+    })
+    .attr("y",function(d,i){
+      return initial - d;
+    })
+    .attr("width",width)
+    .attr("height",0)
+    .transition()
+    .delay(function(d,i){ return 500 * i; })
+    .attr("height",function(d,i){
+      return d;
+    });
+
+    d3.select("#updata1").on("click",function(){
+      d3.select("#graph")
+        .selectAll("rect")
+        .data(dataList1)
+        .transition()
+        .attr("y",function(d,i){
+          return initial - d;
+        })
+        .attr("height",function(d,i){
+          return d;
+        });
+    });
+
+    d3.select("#updata2").on("click",function(){
+      d3.select("#graph")
+        .selectAll("rect")
+        .data(dataList2)
+        .transition()
+        .attr("y",function(d,i){
+          return initial - d;
+        })
+        .attr("height",function(d,i){
+          return d;
+        });
+    });
+</script>
+</body>
+</html>
