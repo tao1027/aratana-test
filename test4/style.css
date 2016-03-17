@@ -1,0 +1,22 @@
+.graph{
+  height: 150px;
+  width: 300px;
+  padding: 10px;
+}
+.graph rect{
+  fill: #ff0000;
+  stroke: #0000ff;
+  stroke-width: 3px;
+}
+.graph rect:hover {
+  fill: #0000ff
+}
+.axis line,
+.axis path{
+  fill: none;
+  stroke: #000000;
+}
+.axis text{
+  font-family: sans-serif;
+  font-size: 10px;
+}
