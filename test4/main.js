@@ -1,13 +1,13 @@
-var dataList = [300,100,200],
-    height = 20,
-    space = 5,
-    xScale = d3.scale.linear()
-    .domain([0,300])
-    .range([0,300]),
-    XScalePos = dataList.length * 25;
+var dataList = [300,100,200];
 
 var A = (function(){
   function A(runAction){
+    xScale = d3.scale.linear()
+      .domain([0,300])
+      .range([0,300]),
+    XScalePos = dataList.length * 25,
+    height = 20,
+    space = 5,
     this.runAction = runAction; //コンストラクタ部分
   }
 
@@ -40,3 +40,5 @@ var test = new A(dataList);
 d3.select("#create").on("click",function(){
   test.run();
 })
+
+console.log(height)
