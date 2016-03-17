@@ -4,12 +4,12 @@
   padding: 10px;
 }
 .graph rect{
-  fill: #ff0000;
-  stroke: #0000ff;
+  fill: #99FF99;
+  stroke: #66FF66;
   stroke-width: 3px;
 }
 .graph rect:hover {
-  fill: #0000ff
+  fill: #FFFF66;
 }
 .axis line,
 .axis path{
